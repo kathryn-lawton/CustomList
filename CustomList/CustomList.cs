@@ -9,7 +9,8 @@ namespace CustomList
 	public class CustomList<T>
 	{
 		T[] array;
-		int capacity;
+		private int count;
+		private int capacity;
 
 		public CustomList()
 		{
@@ -17,19 +18,43 @@ namespace CustomList
 			this.array = new T[capacity];
 		}
 
-		public void Add()
+		public T this[int i]
+		{
+			get
+			{
+				return array[i];
+			}
+			set
+			{
+				array[i] = value;
+			}
+		}
+
+		public int Count { get; }
+		
+		public int Capacity
+		{
+			get { return capacity; }
+			set { capacity = value; }
+		}
+
+
+		
+
+		public void Add(T item)
 		{
 
 		}
 
-		public void Remove()
+		public void Remove(T item)
 		{
 
 		}
 
 		public override string ToString()
 		{
-			return base.ToString();
+			return "";
 		}
+
 	}
 }

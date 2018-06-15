@@ -123,9 +123,22 @@ namespace CustomListTest
 			Assert.AreEqual(expectedCount, actualResult);
 		}
 
+		[TestMethod]
+		public void Check_Index_IntValue()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			int expectedResult = 0;
+
+			customList.Add(0);
+			customList.Add(1);
+			customList.Remove(1);
+
+			Assert.AreEqual(expectedResult, customList[1]);
+		}
+
 		//count
 		//exception array size 5, looking for 7th index
-	
+
 
 		//tostring
 		//OVERRIDE DON'T OVERLOAD
@@ -137,7 +150,7 @@ namespace CustomListTest
 			string expectedResult = "3";
 
 			customList.Add(3);
-			string actualResult = customList.ToString;
+			string actualResult = customList.ToString();
 
 			Assert.AreEqual(expectedResult, actualResult);
 		}
@@ -150,9 +163,11 @@ namespace CustomListTest
 
 			customList.Add(1);
 			customList.Add(2);
-			string actualResult = customList.ToString;
+			string actualResult = customList.ToString();
 
 			Assert.AreEqual(expectedResult, actualResult);
 		}
+
+		
 	}
 }
