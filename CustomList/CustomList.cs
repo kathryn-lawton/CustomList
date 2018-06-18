@@ -9,8 +9,9 @@ namespace CustomList
 	public class CustomList<T>
 	{
 		T[] array;
-		private int count;
-		private int capacity;
+		public int Count { get; }
+		int capacity;
+		StringBuilder convertedString;
 
 		public CustomList()
 		{
@@ -29,9 +30,7 @@ namespace CustomList
 				array[i] = value;
 			}
 		}
-
-		public int Count { get; }
-		
+	
 		public int Capacity
 		{
 			get { return capacity; }
@@ -39,11 +38,15 @@ namespace CustomList
 		}
 
 
-		
-
 		public void Add(T item)
 		{
-
+			T[] temporaryArray = new T[array.Length + 1];
+			for (int i = 0; i < array.Length; i++)
+			{
+				temporaryArray[i] = array[i];
+			}
+			temporaryArray[array.Length] = item;
+			array = temporaryArray;
 		}
 
 		public void Remove(T item)
@@ -54,6 +57,15 @@ namespace CustomList
 		public override string ToString()
 		{
 			return "";
+
+		}
+
+		public void Print()
+		{
+			foreach(T item in array)
+			{
+				Console.WriteLine(item);
+			}
 		}
 
 	}

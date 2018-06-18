@@ -61,6 +61,26 @@ namespace CustomListTest
 			Assert.AreEqual(customList[0], inputValue);
 		}
 
+		public void Add_Object_ToEmptyList()
+		{
+			CustomList<Array> customList = new CustomList<Array>();
+			Example testInput = new Example();
+
+			customList.Add(testInput);
+
+			Assert.AreEqual(customList[0], testInput);
+		}
+
+		public void Add_NewList_ToCustomList()
+		{
+			List<int> newList = new List<int>();
+			CustomList<List<int>> customList = new CustomList<List<int>>();
+
+			customList.Add(newList);
+
+			Assert.AreEqual(customList[0], newList);
+		}
+
 		//Array - if 5 index and you want 6, redeclare and check size
 
 		//Remove
