@@ -63,7 +63,7 @@ namespace CustomListTest
 
 		public void Add_Object_ToEmptyList()
 		{
-			CustomList<Array> customList = new CustomList<Array>();
+			CustomList<Example> customList = new CustomList<Example>();
 			Example testInput = new Example();
 
 			customList.Add(testInput);
@@ -156,6 +156,13 @@ namespace CustomListTest
 			Assert.AreEqual(expectedResult, customList[1]);
 		}
 
+		[TestMethod]
+		public void Check_RemoveOneItem_IsTrue()
+		{
+		
+		}
+		
+		
 		//count
 		//exception array size 5, looking for 7th index
 
@@ -193,12 +200,25 @@ namespace CustomListTest
 		public void Add_TwoLists_NewList()
 		{
 			CustomList<int> custom = new CustomList<int>();
-			List<int> list1 = new List<int> { 1, 2, 3 };
-			List<int> list2 = new List<int> { 4, 5, 6 };
-			List<int> combinedList = new List<int>();
-			List<int> expectedList = new List<int> { 1, 2, 3, 4, 5, 6 };
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>();
 
-			combinedList = list1.Add(list2);
+			for(int i = 0; i < 6; i++)
+			{
+				if(i <= 2)
+				{
+					list1.Add(i);
+				}
+				else
+				{
+					list2.Add(i);
+				}
+				expectedList.Add(i);
+			}
+			
+			// combinedList = list1 + list2;
 
 			Assert.AreEqual(combinedList, expectedList);
 		}

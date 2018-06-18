@@ -10,15 +10,13 @@ namespace CustomList
 	{
 		public T[] items;
 		public int Capacity { get { return itemCapacity; } set { itemCapacity = value; } }
-		public int Count { get; }
+		public int Count { get; private set; }
 		public int itemCapacity;
-		public int currentCount;
-
 
 		public CustomList()
 		{
 			itemCapacity = 4;
-			currentCount = 0;
+			Count = 0;
 			this.items = new T[itemCapacity];
 		}
 
@@ -36,37 +34,54 @@ namespace CustomList
 
 		public void Add(T item)
 		{
-			for(int i = 0; i <= currentCount; i++)
-			{
-				if (currentCount == i)
-				{
-					items[i] = item;
-				}
-			}
-			currentCount++;
+			items[Count] = item;
+
+			Count++;
 			CheckCapacity();
 		}
 
 		public void CheckCapacity()
 		{
-			if (currentCount == itemCapacity)
+			if (Count == itemCapacity)
 			{
 				itemCapacity *= 2;
 				T[] newItems = new T[itemCapacity];
-				for (int i = 0; i < currentCount; i++)
+				for (int i = 0; i < Count; i++)
 				{
-					items[i] = newItems[i];
+					newItems[i] = items[i];
 				}
-				newItems = items;
+				items = newItems;
 			}
-			//check if at capacity
-			//if at capacity, create new array with *=2 capacity
-			//copy items into new array w/ loop
 		}
 
 		public bool Remove(T item)
 		{
-			return true;
+			T[] newItems = new T[itemCapacity];
+			bool isFound = false;
+			for (int i = 0; i < Count; i++)
+			{
+				if(items[i].Equals(item) && !isFound)
+				{
+					isFound = true;
+					Count--;
+				}
+				else
+				{
+					int index = 0;
+					if(isFound)
+					{
+						index = i - 1;
+					}
+					else
+					{
+						index = i;
+					}
+
+					newItems[index] = items[i];
+				}
+			}
+
+			return isFound;
 		}
 
 		public override string ToString()
