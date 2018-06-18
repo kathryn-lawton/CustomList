@@ -8,61 +8,78 @@ namespace CustomList
 {
 	public class CustomList<T>
 	{
-		T[] array;
+		public T[] items;
+		public int Capacity { get { return itemCapacity; } set { itemCapacity = value; } }
 		public int Count { get; }
-		int capacity;
-		StringBuilder convertedString;
+		public int itemCapacity;
+		public int currentCount;
+
 
 		public CustomList()
 		{
-			capacity = 5;
-			this.array = new T[capacity];
+			itemCapacity = 4;
+			currentCount = 0;
+			this.items = new T[itemCapacity];
 		}
 
 		public T this[int i]
 		{
 			get
 			{
-				return array[i];
+				return items[i];
 			}
 			set
 			{
-				array[i] = value;
+				items[i] = value;
 			}
 		}
-	
-		public int Capacity
-		{
-			get { return capacity; }
-			set { capacity = value; }
-		}
-
 
 		public void Add(T item)
 		{
-			T[] temporaryArray = new T[array.Length + 1];
-			for (int i = 0; i < array.Length; i++)
+			for(int i = 0; i <= currentCount; i++)
 			{
-				temporaryArray[i] = array[i];
+				if (currentCount == i)
+				{
+					items[i] = item;
+				}
 			}
-			temporaryArray[array.Length] = item;
-			array = temporaryArray;
+			currentCount++;
+			CheckCapacity();
 		}
 
-		public void Remove(T item)
+		public void CheckCapacity()
 		{
+			if (currentCount == itemCapacity)
+			{
+				itemCapacity *= 2;
+				T[] newItems = new T[itemCapacity];
+				for (int i = 0; i < currentCount; i++)
+				{
+					items[i] = newItems[i];
+				}
+				newItems = items;
+			}
+			//check if at capacity
+			//if at capacity, create new array with *=2 capacity
+			//copy items into new array w/ loop
+		}
 
+		public bool Remove(T item)
+		{
+			return true;
 		}
 
 		public override string ToString()
 		{
+			//for loop
+			//StringBuilder
 			return "";
 
 		}
 
 		public void Print()
 		{
-			foreach(T item in array)
+			foreach(T item in items)
 			{
 				Console.WriteLine(item);
 			}

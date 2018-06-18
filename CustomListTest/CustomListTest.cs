@@ -188,6 +188,20 @@ namespace CustomListTest
 			Assert.AreEqual(expectedResult, actualResult);
 		}
 
-		
+
+		//overload +
+		public void Add_TwoLists_NewList()
+		{
+			CustomList<int> custom = new CustomList<int>();
+			List<int> list1 = new List<int> { 1, 2, 3 };
+			List<int> list2 = new List<int> { 4, 5, 6 };
+			List<int> combinedList = new List<int>();
+			List<int> expectedList = new List<int> { 1, 2, 3, 4, 5, 6 };
+
+			combinedList = list1.Add(list2);
+
+			Assert.AreEqual(combinedList, expectedList);
+		}
+			
 	}
 }
