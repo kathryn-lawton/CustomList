@@ -367,8 +367,38 @@ namespace CustomListTest
 			}
 			zippedList = CustomList<int>.ZipLists(list1, list2);
 
-			Assert.AreEqual(zippedList[0], zippedList[1]);
-		
+			Assert.AreEqual(zippedList[0], zippedList[1]);		
+		}
+
+		[TestMethod]
+		public void  Zip_ZippedList_Count()
+		{
+			CustomList<int> zippedList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>() { 0, 0, 1, 1, 2, 2 };
+
+			for (int i = 0; i < 3; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+			}
+			zippedList = CustomList<int>.ZipLists(list1, list2);
+
+			Assert.AreEqual(expectedList.Count, zippedList.Count);
+		}
+
+		[TestMethod]
+		public void Zip_TwoLists_ZippedList()
+		{
+			CustomList<int> zippedList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>() { 1, 2 };
+			CustomList<int> list2 = new CustomList<int>() { 1, 2 };
+			CustomList<int> expectedList = new CustomList<int>() { 1, 1, 2, 2 };
+
+			zippedList = CustomList<int>.ZipLists(list1, list2);
+
+			Assert.IsTrue(CustomList<int>.CompareLists(expectedList, zippedList));
 		}
 	}
 }
