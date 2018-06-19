@@ -295,7 +295,7 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void OverloadMinusOperator_CompareListCapacity_RemoveValues()
+		public void OverloadMinusOperator_RemoveValues_Capacity()
 		{
 			CustomList<int> customList = new CustomList<int>();
 			CustomList<int> list1 = new CustomList<int>();
@@ -332,6 +332,43 @@ namespace CustomListTest
 			combinedList = list1 - list2;
 
 			Assert.IsTrue(CustomList<int>.CompareLists(expectedList, combinedList));
+		}
+
+		[TestMethod]
+		public void OverloadMinusOperator_Value_ShiftIndex()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			list1.Add(1);
+			list1.Add(2);
+			list1.Add(3);
+			list2.Add(1);
+			list2.Add(2);
+			combinedList = list1 - list2;
+
+			Assert.AreEqual(list1[2], combinedList[0]);
+		}
+
+		//ZIP
+		[TestMethod]
+		public void Zip_TwoLists_CheckIndex()
+		{
+			CustomList<int> zippedList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+
+			for(int i = 0; i < 3; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+			}
+			zippedList = CustomList<int>.ZipLists(list1, list2);
+
+			Assert.AreEqual(zippedList[0], zippedList[1]);
+		
 		}
 	}
 }

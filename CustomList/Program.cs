@@ -17,7 +17,15 @@ namespace CustomList
 			customList.Add(3);
 			customList.Add(4);
 			customList.Add(5);
+			customList.Remove(1);
 
+			foreach (int item in customList)
+			{
+				Console.WriteLine(item);
+			}
+			Console.ReadLine();
+
+			
 		}
 	}
 }

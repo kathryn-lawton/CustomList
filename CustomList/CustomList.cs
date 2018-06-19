@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-	public class CustomList<T> : IEnumerable<T>
+	public class CustomList<T> : IEnumerable
 	{
 		public T[] items;
 		public int Capacity { get { return itemCapacity; } set { itemCapacity = value; } }
@@ -196,16 +196,12 @@ namespace CustomList
 			return true;
 		}
 
-		public IEnumerator<T> GetEnumerator()
+		public IEnumerator GetEnumerator()
 		{
-			throw new NotImplementedException();
+			for (int i = 0; i < Count; i++)
+			{
+				yield return items[i];
+			}
 		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			throw new NotImplementedException();
-		}
-
-
 	}
 }
