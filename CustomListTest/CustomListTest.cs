@@ -37,7 +37,7 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Add_IncreaseCapacity_HigherCapacity()
+		public void Add_Capacity_HigherCapacity()
 		{
 			CustomList<int> list = new CustomList<int>();
 			int initialCapacity = list.Capacity;
@@ -50,10 +50,11 @@ namespace CustomListTest
 			Assert.IsTrue(list.Capacity > initialCapacity);
 		}
 
+		[TestMethod]
 		public void Add_Object_ToEmptyList()
 		{
-			CustomList<Example> customList = new CustomList<Example>();
-			Example testInput = new Example();
+			CustomList<ExampleTest> customList = new CustomList<ExampleTest>();
+			ExampleTest testInput = new ExampleTest();
 
 			customList.Add(testInput);
 
@@ -75,7 +76,7 @@ namespace CustomListTest
 
 		//Remove
 		[TestMethod]
-		public void Check_ValueAt_FirstIndex()
+		public void Remove_FirstIndexValue_ReturnNumberValue()
 		{
 			CustomList<int> customList = new CustomList<int>();
 			int numberValue = 4;
@@ -89,7 +90,7 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Remove_FirstValue_ReturnSecondValue()
+		public void Remove_ZeroIndexValue_FirstIndexShift()
 		{
 			CustomList<int> customList = new CustomList<int>();
 			int firstValue = 1;
@@ -132,18 +133,21 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Check_RemoveOneItem_IsTrue()
+		public void Remove_Object_GetCount()
 		{
-		
-		}
-		
-		
-		//count
-		//exception array size 5, looking for 7th index
+			CustomList<ExampleTest> customList = new CustomList<ExampleTest>();
+			ExampleTest testInput = new ExampleTest();
+			int expectedResult = 1;
 
+			customList.Add(testInput);
+			customList.Add(testInput);
+			customList.Remove(testInput);
+			int actualResult = customList.Count;
+
+			Assert.AreEqual(expectedResult, actualResult);
+		}
 
 		//tostring
-		//OVERRIDE DON'T OVERLOAD
 
 		[TestMethod]
 		public void Check_Value_IsString()
@@ -157,14 +161,38 @@ namespace CustomListTest
 			Assert.AreEqual(expectedResult, actualResult);
 		}
 
-		//emptyList returns empty string
-		//add elements, get length of tostring, add more elements, get length again, length should be greater than first
+		[TestMethod]
+		public void ToString_EmptyList_EmptyString()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			string expectedResult = "";
+
+			customList.Add(1);
+			customList.Remove(1);
+			string actualResult = customList.ToString();
+
+			Assert.AreEqual(expectedResult, actualResult);
+		}
+		
+		[TestMethod]
+		public void ToString_Count_HasIncreased()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			customList.Add(0);
+			customList.Add(1);
+			int firstCount = customList.Count;
+			customList.Add(2);
+			customList.Add(3);
+			int secondCount = customList.Count;
+
+			Assert.AreNotEqual(firstCount, secondCount);
+		}
 
 		//overload +
 		[TestMethod]
 		public void Add_TwoLists_NewList()
 		{
-			CustomList<int> custom = new CustomList<int>();
+			CustomList<int> customList = new CustomList<int>();
 			CustomList<int> list1 = new CustomList<int>();
 			CustomList<int> list2 = new CustomList<int>();
 			CustomList<int> combinedList = new CustomList<int>();
@@ -187,7 +215,36 @@ namespace CustomListTest
 
 			Assert.IsTrue(CustomList<int>.CompareLists(combinedList, expectedList));
 		}
-		//add empty list
+
+		[TestMethod]
+		public void OverloadPlusOperator_EmptyList_NewList()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedCountList = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			for (int i = 0; i < 4; i++)
+			{
+				list1.Add(i);
+			}
+
+			expectedCountList = list1;
+			combinedList = list1 + list2;
+
+			Assert.AreEqual(expectedCountList.Count, combinedList.Count);
+		}
+
+		[TestMethod]
+		public void OverloadPlusOperator_Add_SameLists()
+		{
+			CustomList<int> customList = new CustomList<int>();
+
+		}
 		//add list of same items 
+
+		
+		//overload -
 	}
 }

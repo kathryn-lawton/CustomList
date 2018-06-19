@@ -134,5 +134,25 @@ namespace CustomList
 			return newItems;
 		}
 
+
+		public static CustomList<T> operator -(CustomList<T> list1, CustomList<T> list2)
+		{
+			CustomList<T> newItems = new CustomList<T>();
+			for (int i = 0; i < list1.Count; i++)
+			{
+				newItems.Add(list1[i]);
+			}
+
+			for (int i = 0; i < list2.Count; i++)
+			{
+				newItems.Remove(list2[i]);
+			}
+
+			return newItems;
+		}
+
+		
+
+		
 	}
 }
