@@ -93,7 +93,6 @@ namespace CustomList
 
 		public override string ToString()
 		{
-			StringBuilder stringBuilder = new StringBuilder();
 			string returnString = string.Empty;
 			for (int i = 0; i < Count; i ++)
 			{
@@ -117,7 +116,6 @@ namespace CustomList
 			}
 		}
 
-		// List1 + List2 = NewList
 		public static CustomList<T> operator +(CustomList<T> list1, CustomList<T> list2)
 		{
 			CustomList<T> newItems = new CustomList<T>();
@@ -151,8 +149,63 @@ namespace CustomList
 			return newItems;
 		}
 
-		
+		public static CustomList<T> ZipLists(CustomList<T> list1, CustomList<T> list2)
+		{
+			CustomList<T> zippedList = new CustomList<T>();
+			int largerCount = 0;
+			if (list1.Count > list2.Count)
+			{
+				largerCount = list1.Count;
+			}
+			else
+			{
+				largerCount = list2.Count;
+			}
 
-		
+			for (int i = 0; i < largerCount; i++)
+			{
+				if (i < list1.Count)
+				{
+					zippedList.Add(list1[i]);
+				}
+
+				if (i < list2.Count)
+				{
+					zippedList.Add(list2[i]);
+				}
+			}
+
+			return zippedList;
+		}
+
+		public static bool CompareLists(CustomList<T> items1, CustomList<T> items2)
+		{
+			if (items1.Count != items2.Count)
+			{
+				return false;
+			}
+
+			for (int i = 0; i < items1.Count; i++)
+			{
+				if (!items1[i].Equals(items2[i]))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		public IEnumerator<T> GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+
 	}
 }

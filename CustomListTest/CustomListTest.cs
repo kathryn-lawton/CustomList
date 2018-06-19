@@ -10,7 +10,7 @@ namespace CustomListTest
 	[TestClass]
 	public class CustomListTest
 	{
-		//Add
+		//ADD
 		[TestMethod]
 		public void Add_FirstValue_ZeroIndex()
 		{
@@ -74,7 +74,7 @@ namespace CustomListTest
 			Assert.AreEqual(5, customList.Count);
 		}
 
-		//Remove
+		//REMOVE
 		[TestMethod]
 		public void Remove_FirstIndexValue_ReturnNumberValue()
 		{
@@ -147,8 +147,7 @@ namespace CustomListTest
 			Assert.AreEqual(expectedResult, actualResult);
 		}
 
-		//tostring
-
+		//TOSTRING
 		[TestMethod]
 		public void Check_Value_IsString()
 		{
@@ -188,7 +187,7 @@ namespace CustomListTest
 			Assert.AreNotEqual(firstCount, secondCount);
 		}
 
-		//overload +
+		//OVERLOAD+
 		[TestMethod]
 		public void Add_TwoLists_NewList()
 		{
@@ -237,14 +236,102 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void OverloadPlusOperator_Add_SameLists()
+		public void OverloadPlusOperator_Capacity_NewList()
 		{
 			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedCountList = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
 
+			for (int i = 0; i < 4; i++)
+			{
+				list1.Add(i);
+			}
+
+			expectedCountList = list1;
+			combinedList = list1 + list2;
+
+			Assert.AreEqual(expectedCountList.Capacity, combinedList.Capacity);
 		}
-		//add list of same items 
 
+		[TestMethod]
+		public void OverloadPlusOperator_AddSameLists_CheckIndexValue()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			for(int i = 0; i < 5; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+			}
+			combinedList = list1 + list2;
+
+			Assert.AreEqual(list2[0], combinedList[5]);
+		}
 		
-		//overload -
+		//OVERLOAD-
+		[TestMethod]
+		public void OverloadMinusOperator_CompareSameList_RemoveValues()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			for(int i = 0; i < 2; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+
+			}
+			combinedList = list1 - list2;
+
+			Assert.IsTrue(CustomList<int>.CompareLists(combinedList, expectedList));
+		}
+
+		[TestMethod]
+		public void OverloadMinusOperator_CompareListCapacity_RemoveValues()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			for (int i = 0; i < 2; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+
+			}
+			combinedList = list1 - list2;
+
+			Assert.AreEqual(expectedList.Capacity, combinedList.Capacity);
+		}
+
+		[TestMethod]
+		public void OverloadMinusOperator_DifferentLists_NothingRemoved()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>();
+			CustomList<int> combinedList = new CustomList<int>();
+
+			expectedList.Add(0);
+			expectedList.Add(1);
+			list1.Add(0);
+			list1.Add(1);
+			list2.Add(2);
+			list2.Add(3);
+			combinedList = list1 - list2;
+
+			Assert.IsTrue(CustomList<int>.CompareLists(expectedList, combinedList));
+		}
 	}
 }
