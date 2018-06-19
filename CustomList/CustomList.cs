@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-	public class CustomList<T>
+	public class CustomList<T> : IEnumerable<T>
 	{
 		public T[] items;
 		public int Capacity { get { return itemCapacity; } set { itemCapacity = value; } }
@@ -63,7 +64,6 @@ namespace CustomList
 				if(items[i].Equals(item) && !isFound)
 				{
 					isFound = true;
-					Count--;
 				}
 				else
 				{
@@ -81,15 +81,32 @@ namespace CustomList
 				}
 			}
 
+			if(isFound)
+			{
+				Count--;
+			}
+
+			items = newItems;
+
 			return isFound;
 		}
 
 		public override string ToString()
 		{
-			//for loop
-			//StringBuilder
-			return "";
-
+			StringBuilder stringBuilder = new StringBuilder();
+			string returnString = string.Empty;
+			for (int i = 0; i < Count; i ++)
+			{
+				if (i == Count - 1)
+				{
+					returnString += items[i].ToString();
+				}
+				else
+				{
+					returnString += items[i].ToString() + ", ";
+				}
+			}
+			return returnString;
 		}
 
 		public void Print()
@@ -98,6 +115,23 @@ namespace CustomList
 			{
 				Console.WriteLine(item);
 			}
+		}
+
+		// List1 + List2 = NewList
+		public static CustomList<T> operator +(CustomList<T> list1, CustomList<T> list2)
+		{
+			CustomList<T> newItems = new CustomList<T>();
+			for(int i = 0; i < list1.Count; i++)
+			{
+				newItems.Add(list1[i]);
+			}
+
+			for (int i = 0; i < list2.Count; i++)
+			{
+				newItems.Add(list2[i]);
+			}
+
+			return newItems;
 		}
 
 	}

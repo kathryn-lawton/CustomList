@@ -23,20 +23,6 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Add_SecondValue_FirstIndex()
-		{
-			CustomList<int> customList = new CustomList<int>();
-			int firstValue = 1;
-			int secondValue = 2;
-
-			customList.Add(firstValue);
-			customList.Add(secondValue);
-
-
-			Assert.AreEqual(secondValue, customList[1]);
-		}
-
-		[TestMethod]
 		public void Add_GetList_Count()
 		{
 			CustomList<int> customList = new CustomList<int>();
@@ -51,14 +37,17 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Check_Capacity()
+		public void Add_IncreaseCapacity_HigherCapacity()
 		{
-			CustomList<Array> customList = new CustomList<Array>();
-			int[] inputValue = new int[] { };
+			CustomList<int> list = new CustomList<int>();
+			int initialCapacity = list.Capacity;
 
-			customList.Add(inputValue);
+			for(int i = 0; i < initialCapacity * 2; i++)
+			{
+				list.Add(i);
+			}
 
-			Assert.AreEqual(customList[0], inputValue);
+			Assert.IsTrue(list.Capacity > initialCapacity);
 		}
 
 		public void Add_Object_ToEmptyList()
@@ -71,17 +60,18 @@ namespace CustomListTest
 			Assert.AreEqual(customList[0], testInput);
 		}
 
-		public void Add_NewList_ToCustomList()
+		[TestMethod]
+		public void Add_MoreItemsThanCapacity_CheckCount()
 		{
-			List<int> newList = new List<int>();
-			CustomList<List<int>> customList = new CustomList<List<int>>();
+			CustomList<int> customList = new CustomList<int>();
 
-			customList.Add(newList);
+			for(int i = 0; i < 5; i++)
+			{
+				customList.Add(i);
+			}
 
-			Assert.AreEqual(customList[0], newList);
+			Assert.AreEqual(5, customList.Count);
 		}
-
-		//Array - if 5 index and you want 6, redeclare and check size
 
 		//Remove
 		[TestMethod]
@@ -96,21 +86,6 @@ namespace CustomListTest
 			customList.Remove(3);
 
 			Assert.AreEqual(numberValue, customList[1]);
-		}
-
-		[TestMethod]
-		public void Check_ValueAt_SecondIndex()
-		{
-			CustomList<int> customList = new CustomList<int>();
-			int numberValue = 4;
-
-			customList.Add(5);
-			customList.Add(3);
-			customList.Add(1);
-			customList.Add(numberValue);
-			customList.Remove(3);
-
-			Assert.AreEqual(numberValue, customList[2]);
 		}
 
 		[TestMethod]
@@ -144,16 +119,16 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
-		public void Check_Index_IntValue()
+ 		public void Check_Index_IntValue()
 		{
 			CustomList<int> customList = new CustomList<int>();
 			int expectedResult = 0;
 
-			customList.Add(0);
 			customList.Add(1);
+			customList.Add(expectedResult);
 			customList.Remove(1);
 
-			Assert.AreEqual(expectedResult, customList[1]);
+			Assert.AreEqual(expectedResult, customList[0]);
 		}
 
 		[TestMethod]
@@ -182,21 +157,11 @@ namespace CustomListTest
 			Assert.AreEqual(expectedResult, actualResult);
 		}
 
-		[TestMethod]
-		public void Check_SecondValue_IsString()
-		{
-			CustomList<int> customList = new CustomList<int>();
-			string expectedResult = "2";
-
-			customList.Add(1);
-			customList.Add(2);
-			string actualResult = customList.ToString();
-
-			Assert.AreEqual(expectedResult, actualResult);
-		}
-
+		//emptyList returns empty string
+		//add elements, get length of tostring, add more elements, get length again, length should be greater than first
 
 		//overload +
+		[TestMethod]
 		public void Add_TwoLists_NewList()
 		{
 			CustomList<int> custom = new CustomList<int>();
@@ -218,10 +183,11 @@ namespace CustomListTest
 				expectedList.Add(i);
 			}
 			
-			// combinedList = list1 + list2;
+			combinedList = list1 + list2;
 
-			Assert.AreEqual(combinedList, expectedList);
+			Assert.IsTrue(CustomList<int>.CompareLists(combinedList, expectedList));
 		}
-			
+		//add empty list
+		//add list of same items 
 	}
 }
