@@ -48,7 +48,7 @@ namespace CustomList
 				itemCapacity *= 2;
 				T[] newItems = new T[itemCapacity];
 				for (int i = 0; i < Count; i++)
-				{
+				 {
 					newItems[i] = items[i];
 				}
 				items = newItems;

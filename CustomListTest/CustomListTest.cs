@@ -42,7 +42,7 @@ namespace CustomListTest
 			CustomList<int> list = new CustomList<int>();
 			int initialCapacity = list.Capacity;
 
-			for(int i = 0; i < initialCapacity * 2; i++)
+			for (int i = 0; i < initialCapacity * 2; i++)
 			{
 				list.Add(i);
 			}
@@ -66,7 +66,7 @@ namespace CustomListTest
 		{
 			CustomList<int> customList = new CustomList<int>();
 
-			for(int i = 0; i < 5; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				customList.Add(i);
 			}
@@ -120,7 +120,7 @@ namespace CustomListTest
 		}
 
 		[TestMethod]
- 		public void Check_Index_IntValue()
+		public void Check_Index_IntValue()
 		{
 			CustomList<int> customList = new CustomList<int>();
 			int expectedResult = 0;
@@ -172,7 +172,7 @@ namespace CustomListTest
 
 			Assert.AreEqual(expectedResult, actualResult);
 		}
-		
+
 		[TestMethod]
 		public void ToString_Count_HasIncreased()
 		{
@@ -197,9 +197,9 @@ namespace CustomListTest
 			CustomList<int> combinedList = new CustomList<int>();
 			CustomList<int> expectedList = new CustomList<int>();
 
-			for(int i = 0; i < 6; i++)
+			for (int i = 0; i < 6; i++)
 			{
-				if(i <= 2)
+				if (i <= 2)
 				{
 					list1.Add(i);
 				}
@@ -209,7 +209,7 @@ namespace CustomListTest
 				}
 				expectedList.Add(i);
 			}
-			
+
 			combinedList = list1 + list2;
 
 			Assert.IsTrue(CustomList<int>.CompareLists(combinedList, expectedList));
@@ -263,7 +263,7 @@ namespace CustomListTest
 			CustomList<int> list2 = new CustomList<int>();
 			CustomList<int> combinedList = new CustomList<int>();
 
-			for(int i = 0; i < 5; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				list1.Add(i);
 				list2.Add(i);
@@ -272,7 +272,7 @@ namespace CustomListTest
 
 			Assert.AreEqual(list2[0], combinedList[5]);
 		}
-		
+
 		//OVERLOAD-
 		[TestMethod]
 		public void OverloadMinusOperator_CompareSameList_RemoveValues()
@@ -283,7 +283,7 @@ namespace CustomListTest
 			CustomList<int> expectedList = new CustomList<int>();
 			CustomList<int> combinedList = new CustomList<int>();
 
-			for(int i = 0; i < 2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				list1.Add(i);
 				list2.Add(i);
@@ -360,18 +360,18 @@ namespace CustomListTest
 			CustomList<int> list1 = new CustomList<int>();
 			CustomList<int> list2 = new CustomList<int>();
 
-			for(int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++)
 			{
 				list1.Add(i);
 				list2.Add(i);
 			}
 			zippedList = CustomList<int>.ZipLists(list1, list2);
 
-			Assert.AreEqual(zippedList[0], zippedList[1]);		
+			Assert.AreEqual(zippedList[0], zippedList[1]);
 		}
 
 		[TestMethod]
-		public void  Zip_ZippedList_Count()
+		public void Zip_ZippedList_Count()
 		{
 			CustomList<int> zippedList = new CustomList<int>();
 			CustomList<int> list1 = new CustomList<int>();
@@ -399,6 +399,55 @@ namespace CustomListTest
 			zippedList = CustomList<int>.ZipLists(list1, list2);
 
 			Assert.IsTrue(CustomList<int>.CompareLists(expectedList, zippedList));
+		}
+
+		[TestMethod]
+		public void Zip_ZippedList_Capacity()
+		{
+			CustomList<int> zippedList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>();
+			CustomList<int> list2 = new CustomList<int>();
+			CustomList<int> expectedList = new CustomList<int>() { 0, 0, 1, 1, 2, 2 };
+
+			for (int i = 0; i < 3; i++)
+			{
+				list1.Add(i);
+				list2.Add(i);
+			}
+			zippedList = CustomList<int>.ZipLists(list1, list2);
+
+			Assert.AreEqual(expectedList.Capacity, zippedList.Capacity);
+		}
+
+		//COMPARELISTS
+		[TestMethod]
+		public void CompareLists_Count_False()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>() { 0, 1 };
+			CustomList<int> list2 = new CustomList<int>() { 0, 1, 2 };
+
+			Assert.IsFalse(CustomList<int>.CompareLists(list1, list2));
+		}
+
+		[TestMethod]
+		public void CompareLists_IndexEquals_False()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>() { 0, 2, 1};
+			CustomList<int> list2 = new CustomList<int>() { 0, 1, 2 };
+
+			Assert.IsFalse(CustomList<int>.CompareLists(list1, list2));
+		}
+
+		[TestMethod]
+		public void CompareLists_Equals_Trus()
+		{
+			CustomList<int> customList = new CustomList<int>();
+			CustomList<int> list1 = new CustomList<int>() { 0, 1, 2 };
+			CustomList<int> list2 = new CustomList<int>() { 0, 1, 2 };
+
+			Assert.IsTrue(CustomList<int>.CompareLists(list1, list2));
 		}
 	}
 }
